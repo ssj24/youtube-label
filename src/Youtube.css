@@ -1,0 +1,78 @@
+textarea:focus, input:focus{
+  outline: none;
+}
+
+input {
+  padding: 8px;
+  border: none;
+}
+
+.row > * {
+  display: inline-block;
+  margin: 8px;
+}
+
+.row.first {
+  max-width: 500px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+}
+
+.row.first input {
+  background-color: aquamarine;
+}
+
+.row.second {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.row.second .playerDiv {
+  flex: 2;
+}
+
+.playerDiv > div {
+  margin: auto;
+}
+
+.row.second .transDiv {
+  flex: 1;
+  min-width: 200px;
+  height: 360px;
+  background-color: #00000035;
+}
+
+.trans {
+  height: 320px;
+  overflow-y: auto;
+}
+
+.row.forth {
+  display: flex;
+}
+
+.hashContainer {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 4px;
+  border: 2px solid black;
+  border-radius: 4px;
+}
+
+.hashContainer button {
+  margin-right: 4px;
+  position: relative;
+}
+.hashContainer button:hover::after {
+  content: 'x';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #ffffff90;
+  color: red;
+  font-weight: 900;
+}
