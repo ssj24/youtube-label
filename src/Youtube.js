@@ -57,42 +57,50 @@ function Youtube(props) {
   }
 
   const onHashKeyDown = (e) => {
-    if (e.key === 'Enter' && tempHash.trim()) {
+    if (e.key === 'Enter' && !e.nativeEvent.isComposing && hash.current.value.trim()) {
       e.preventDefault();
-      setButtons([...buttons, tempHash]);
+      console.log(hash.current.value);
+      const hashContent = '#' + hash.current.value.trim();
+      setButtons([...buttons, hashContent]);
       hash.current.value = '';
     }
   }
+
+  const handleCompositionEnd = (e) => {
+    if (e.key === 'Enter') {
+      const hashContent = '#' + hash.current.value.trim();
+      setButtons([...buttons, hashContent]);
+      hash.current.value = '';
+    }
+  };
 
   const buttonClicked = (idx) => {
     console.log(idx);
     setButtons(buttons.filter((_, index) => index !== idx));
   }
   return (
-    <div>
+    <div className="wrapper">
       <div className="row first">
         <input ref={input} placeholder='유튜브 주소를 입력해주세요.'></input>
-        <button onClick={handleSubmit}>Load</button>
+        <button onClick={handleSubmit}>로드</button>
       </div>
       {urlErr.length ? <p>{urlErr}</p> : null}
       <div className="row second">
         <div className="playerDiv">
           {url.length && urlErr === ''
             ? <ReactPlayer
-                width={640}
-                height={360}
                 url={url}
               />
-            : <img src={noimage} alt='no url is provided.' width={640} />}
+            : <img src={noimage} alt='no url is provided.' />}
         </div>
         <div className="transDiv">
-          <p>자막</p>
+          <p className="subTitle">자막</p>
           <p className="trans">{trans}</p>
         </div>
       </div>
       <div className="row third">
-        <p>교과과정</p>
-        <select ref={firstSel} onChange={firstSelChanged}>
+        <p className="subTitle">교과과정</p>
+        <select ref={firstSel} onChange={firstSelChanged} className="firstSel">
           <option value={0} defaultValue={true}>초등학교 1학년</option>
           <option value={1}>초등학교 2학년</option>
           <option value={2}>초등학교 3학년</option>
@@ -100,23 +108,28 @@ function Youtube(props) {
           <option value={4}>초등학교 5학년</option>
           <option value={5}>초등학교 6학년</option>
         </select>
-        <select ref={secondSel}>
+        <select ref={secondSel} className="secondSel">
             {secondOps.map((ops) => {
               return <option key={ops} value={ops}>{ops}</option>
             })}
         </select>
       </div>
       <div className="row forth">
-        <p>해시태그</p>
+        <p className="subTitle">해시태그</p>
         <div className="hashContainer">
           {buttons.map((buttonText, index) => (
-            <button key={index} onClick={() => buttonClicked(index)}>
+            <button
+              key={index}
+              onClick={() => buttonClicked(index)}>
               {buttonText}
             </button>
           ))}
           <input
             type="text"
-            ref={hash} onChange={onHashChange} onKeyDown={onHashKeyDown}
+            ref={hash}
+            onChange={onHashChange}
+            onKeyDown={onHashKeyDown}
+            onCompositionEnd={handleCompositionEnd}
             style={{ flexGrow: 1 }}
           />
         </div>
