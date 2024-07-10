@@ -7,49 +7,112 @@ input {
   border: none;
 }
 
+* {
+  box-sizing: border-box;
+}
+
+.wrapper {
+  width: 70%;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding-top: 30px;
+}
+
 .row > * {
   display: inline-block;
   margin: 8px;
 }
 
 .row.first {
-  max-width: 500px;
+  max-width: 400px;
   margin: auto;
   display: grid;
   grid-template-columns: 3fr 1fr;
 }
 
-.row.first input {
-  background-color: aquamarine;
+.row.first input:not(button) {
+  padding: 16px;
+  border-radius: 8px;
+  border: 1px solid gray;
+}
+
+.row.first button {
+  font-weight: 900;
+  font-size: 1em;
+  padding: 8px;
+  background-color: transparent;
+  border-radius: 8px;
+  border: 2px solid gray;
+}
+.row.first button:hover {
+  background-color: green;
+  color: white;
 }
 
 .row.second {
   display: flex;
   flex-wrap: wrap;
+  height: 400px;
+  margin-bottom: 16px;
 }
 
 .row.second .playerDiv {
+  background-color: black;
   flex: 2;
+  display: flex;
+  align-items: center;
 }
 
-.playerDiv > div {
+.playerDiv > div,
+.playerDiv > img {
   margin: auto;
+  min-width: 400px;
 }
 
 .row.second .transDiv {
   flex: 1;
+  display: flex;
+  height: 100%;
+  flex-direction: column;
   min-width: 200px;
-  height: 360px;
-  background-color: #00000035;
+}
+
+.subTitle {
+  font-size: 1.2em;
+  font-weight: 900;
+  line-height: 1em;
+  padding: 0;
+}
+
+.transDiv p:not(.trans) {
+  margin-bottom: 0;
+  
 }
 
 .trans {
-  height: 320px;
+  flex-grow: 1;
+  height: 100%;
+  margin-bottom: 4px;
   overflow-y: auto;
+  border-radius: 4px;
+  border-width: 2px;
+  border-style: solid;
+  border-color: #00000035;
+  padding: 8px;
 }
 
+select {
+  padding: 8px;
+  font-size: 1.1em;
+  border: 2px solid gray;
+  border-radius: 4px;
+}
+
+
+.row.third,
 .row.forth {
   display: flex;
+  align-items: center;
 }
 
 .hashContainer {
@@ -57,22 +120,37 @@ input {
   align-items: center;
   flex-wrap: wrap;
   padding: 4px;
-  border: 2px solid black;
+  border: 2px solid gray;
   border-radius: 4px;
 }
 
 .hashContainer button {
   margin-right: 4px;
   position: relative;
+  padding: 4px 8px;
+  background-color: green;
+  color: white;
+  font-weight: 900;
+  border: none;
 }
 .hashContainer button:hover::after {
   content: 'x';
   position: absolute;
+  box-sizing: border-box;
+  padding: 0px 8px;
   left: 0;
   top: 0;
   width: 100%;
   height: 100%;
-  background-color: #ffffff90;
+  background-color: #ffffff99;
   color: red;
+  font-size: 2em;
+  line-height: 0.8em;
   font-weight: 900;
+}
+
+@media screen and (max-width: 500px) {
+  .wrapper {
+    width: 100%;
+  }
 }
